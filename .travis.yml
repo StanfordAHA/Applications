@@ -1,0 +1,43 @@
+notifications:
+  email: false
+sudo: false
+language: c
+compiler:
+  # Comment out for now to keep build matrix small
+  - gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.9
+      - libedit-dev
+      - libpng-dev
+      - graphviz
+
+env:
+  # Configurations
+  #
+  # Each line in the ``env`` section represents a set of environment
+  # variables passed to a build configuration
+  #
+  # Test a mix of llvm versions, a mix of build systems, and a mix of shared vs static library
+  # Don't build as a static library with cmake. It risks exceeding the travis memory limit.
+  - LLVM_VERSION=5.0.0 BUILD_SYSTEM=MAKE CXX_=g++-4.9 CC_=gcc-4.9
+
+cache: apt
+
+before_install:
+  # set variables necessary for halide
+  - source test/scripts/before_install_travis.sh
+  - curl -s https://api.github.com/repos/StanfordAHA/Halide-to-Hardware/releases/latest | grep browser_download_url | cut -d '"' -f 4 | wget -qi i
+  - tar zxvf halide_distrib.tgz
+
+install:
+  # install framework specific to halide
+  - test/scripts/install_travis.sh  
+  - git clone -b dev https://github.com/rdaly525/coreir.git
+  - make -j2 -C coreir all
+
+script:
+  - apps/hardware_benchmarks/tests/random_pipeline/runall.sh

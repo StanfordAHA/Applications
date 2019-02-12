@@ -1,0 +1,12 @@
+# DESCRIPTION: Verilator output: Timestamp data for --skip-identical.  Delete at will.
+C "--cc ./bin/top.v --exe ../../../../../coreir/tools/verilator/tb.cpp"
+S   4117944  9458834  1433741508 "/usr/bin/verilator_bin"
+S     41380  8005503  1549408696 "bin/top.v"
+T     52443  8005498  1549409263 "obj_dir/Vtop.cpp"
+T     10506  8005497  1549409263 "obj_dir/Vtop.h"
+T      2006  8005500  1549409263 "obj_dir/Vtop.mk"
+T       564  8005496  1549409263 "obj_dir/Vtop__Syms.cpp"
+T       942  8005495  1549409263 "obj_dir/Vtop__Syms.h"
+T       198  8005501  1549409263 "obj_dir/Vtop__ver.d"
+T         0        0  1549409263 "obj_dir/Vtop__verFiles.dat"
+T      1079  8005499  1549409263 "obj_dir/Vtop_classes.mk"
