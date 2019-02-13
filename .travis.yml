@@ -31,16 +31,19 @@ before_install:
   # set variables necessary for halide
   - source test/scripts/before_install_travis.sh
   # get the halide release
-  - curl -s https://api.github.com/repos/StanfordAHA/Halide-to-Hardware/releases/latest?access_token=$GITHUB_TOKEN
   - curl -s https://api.github.com/repos/StanfordAHA/Halide-to-Hardware/releases/latest?access_token=$GITHUB_TOKEN | grep browser_download_url | cut -d '"' -f 4 | wget -qi -
-  - ls
   - tar zxvf halide_distrib.tgz
 
 install:
   # install framework specific to halide
-  - test/scripts/install_travis.sh  
+  - test/scripts/install_travis.sh
+  - pushd .
+  - cd $TRAVIS_BUILD_DIR
+  - pwd
   - git clone -b dev https://github.com/rdaly525/coreir.git
   - make -j2 -C coreir all
+  - popd
+  - pwd
 
 script:
   - cd apps/hardware_benchmarks/tests/random_pipeline
@@ -48,7 +51,7 @@ script:
   - ./runall_cpu.sh | tee ../../../../cpu_results.log
   - ./runall_coreir.sh | tee ../../../../coreir_results.log
   - cd ../../../../
-  - html_gen/make_html.sh cpu_results.log _coreir_results.log
+  - html_gen/make_html.sh cpu_results.log coreir_results.log
 
 deploy:
   provider: pages
