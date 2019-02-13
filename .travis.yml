@@ -44,10 +44,11 @@ install:
 
 script:
   - cd apps/hardware_benchmarks/tests/random_pipeline
-  - ./runall.sh
-  - ./runall_coreir.sh
+  - make design-coreir-int-pointwise SEED=1
+  - ./runall_cpu.sh | tee ../../../../cpu_results.log
+  - ./runall_coreir.sh | tee ../../../../coreir_results.log
   - cd ../../../../
-  - html_gen/make_html.sh html_gen/example_cpu_results.log html_gen/example_coreir_results.log
+  - html_gen/make_html.sh cpu_results.log _coreir_results.log
 
 deploy:
   provider: pages
