@@ -2,10 +2,11 @@
 HALIDE_CPU_PROGRAM_RESULTS_FILE=$1
 HALIDE_COREIR_PROGRAM_RESULTS_FILE=$2
 HALIDE_TEMP_RESULTS="temp_results.log"
-export INPUT_HTML_FILE_PRELUDE="index_prelude.html"
-export INPUT_HTML_FILE_EPILOGUE="index_epilogue.html"
-export OUTPUT_HTML_FILE="index.html"
+export INPUT_HTML_FILE_PRELUDE="html_gen/index_prelude.html"
+export INPUT_HTML_FILE_EPILOGUE="html_gen/index_epilogue.html"
+export OUTPUT_HTML_FILE="results/index.html"
 
+mkdir results
 cp $INPUT_HTML_FILE_PRELUDE $OUTPUT_HTML_FILE
 # zip the two inputs together
 paste -d " " $HALIDE_CPU_PROGRAM_RESULTS_FILE $HALIDE_COREIR_PROGRAM_RESULTS_FILE > $HALIDE_TEMP_RESULTS
