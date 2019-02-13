@@ -27,9 +27,9 @@ for SEED_VALUE in `seq 1 ${APP_ITERATIONS[$APPLICATION]}`; do
     EXIT_CODE=$?
 
     if [[ $EXIT_CODE = "0" ]]; then
-        printf "%-45s \033[0;32m%s\033[0m\n" $COMMAND_STRING "PASSED"
+        printf "%-45s %s\n" $COMMAND_STRING "PASSED"
     else
-        printf "%-45s \033[0;31m%s\033[0m\n" $COMMAND_STRING "FAILED"
+        printf "%-45s %s\n" $COMMAND_STRING "FAILED"
     fi
 
 done
