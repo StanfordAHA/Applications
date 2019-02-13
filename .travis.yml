@@ -30,8 +30,8 @@ cache: apt
 before_install:
   # set variables necessary for halide
   - source test/scripts/before_install_travis.sh
+  # get the halide release
   - curl -s https://api.github.com/repos/StanfordAHA/Halide-to-Hardware/releases/latest?access_token=$GITHUB_TOKEN
-  - curl -s https://api.github.com/repos/StanfordAHA/Halide-to-Hardware/releases/latest?access_token=$GITHUB_TOKEN | grep browser_download_url | cut -d '"' -f 4
   - curl -s https://api.github.com/repos/StanfordAHA/Halide-to-Hardware/releases/latest?access_token=$GITHUB_TOKEN | grep browser_download_url | cut -d '"' -f 4 | wget -qi -
   - ls
   - tar zxvf halide_distrib.tgz
@@ -43,4 +43,6 @@ install:
   - make -j2 -C coreir all
 
 script:
-  - apps/hardware_benchmarks/tests/random_pipeline/runall.sh
+  - cd apps/hardware_benchmarks/tests/random_pipeline
+  - ./runall.sh
+  - ./runall_coreir.sh
