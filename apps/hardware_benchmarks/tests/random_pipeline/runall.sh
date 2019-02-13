@@ -36,3 +36,8 @@ done
 done
 done
 done
+
+cd html_gen
+./make_html.sh example_cpu_results.log example_coreir_results.log
+mkdir results
+mv index.html results
