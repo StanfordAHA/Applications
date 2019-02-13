@@ -47,7 +47,7 @@ script:
   - ./runall.sh
   - ./runall_coreir.sh
   - cd ../../../../
-  - make_html.sh example_cpu_results.log example_coreir_results.log
+  - ./make_html.sh example_cpu_results.log example_coreir_results.log
 
 deploy:
   provider: pages
