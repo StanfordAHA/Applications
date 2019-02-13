@@ -44,3 +44,12 @@ install:
 
 script:
   - apps/hardware_benchmarks/tests/random_pipeline/runall.sh
+
+deploy:
+  provider: pages
+  local-dir: html_gen/results
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  on:
+    branch: master
