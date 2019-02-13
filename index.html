@@ -1,11 +1,21 @@
 <html>
     <head>
+        <script
+			      src="https://code.jquery.com/jquery-3.3.1.min.js"
+			      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			      crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <title>Halide-To-Hardware Test Status</title>
     </head>
     <body>
         <h1>Halide-To-Hardware Test Status</h1>
         <table class="table">
+            <thead style="font-weight: bold;" class="table-info">
+                <td id="cpuSuccesses"></td>
+                <td id="cpuFailures"></td>
+                <td id="coreirSuccesses"></td>
+                <td id="coreirFailures"></td>
+            </thead>
 <tr><td class="table-success">design-cpu-int-pointwise-SEED=1</td><td class="table-success">PASSED</td> <td class="table-success">design-coreir-int-pointwise-SEED=1</td><td class="table-success">PASSED</td></tr>
 <tr><td class="table-success">design-cpu-int-pointwise-SEED=2</td><td class="table-success">PASSED</td> <td class="table-success">design-coreir-int-pointwise-SEED=2</td><td class="table-success">PASSED</td></tr>
 <tr><td class="table-success">design-cpu-int-pointwise-SEED=3</td><td class="table-success">PASSED</td> <td class="table-success">design-coreir-int-pointwise-SEED=3</td><td class="table-success">PASSED</td></tr>
@@ -108,5 +118,17 @@
 <tr><td class="table-success">design-cpu-float-total-SEED=15</td><td class="table-success">PASSED</td> <td class="table-danger">design-coreir-float-total-SEED=15</td><td class="table-danger">FAILED</td></tr>
 
         </table>
+        <script>
+         $(function () {
+             cpuSuccesses = $("table").find("tr > td:nth-child(2).table-success").length 
+             coreirSuccesses = $("table").find("tr > td:nth-child(4).table-success").length 
+             cpuFailures = $("table").find("tr > td:nth-child(2).table-danger").length 
+             coreirFailures = $("table").find("tr > td:nth-child(4).table-danger").length 
+             $("#cpuSuccesses").append("CPU Successes: " + String(cpuSuccesses))
+             $("#coreirSuccesses").append("CoreIR Successes: " + String(coreirSuccesses))
+             $("#cpuFailures").append("CPU Failures: " + String(cpuFailures))
+             $("#coreirFailures").append("CoreIR Failures: " + String(coreirFailures))
+         })
+        </script>
     </body>
 </html>
