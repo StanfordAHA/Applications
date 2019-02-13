@@ -31,6 +31,7 @@ before_install:
   # set variables necessary for halide
   - source test/scripts/before_install_travis.sh
   - curl -s https://api.github.com/repos/StanfordAHA/Halide-to-Hardware/releases/latest | grep browser_download_url | cut -d '"' -f 4 | wget -qi -
+  - ls
   - tar zxvf halide_distrib.tgz
 
 install:
