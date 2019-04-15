@@ -41,7 +41,7 @@ install:
   - cd $TRAVIS_BUILD_DIR
   - pwd
   - git clone -b master https://github.com/rdaly525/coreir.git
-  - make -j2 -C coreir all
+  - cd coreir/build && cmake .. && make -j8 all && cd ../../
   - popd
   - pwd
 
