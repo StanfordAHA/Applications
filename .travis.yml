@@ -40,7 +40,7 @@ install:
   - pushd .
   - cd $TRAVIS_BUILD_DIR
   - pwd
-  - git clone -b jeff_fp https://github.com/rdaly525/coreir.git
+  - git clone -b master https://github.com/rdaly525/coreir.git
   - make -j2 -C coreir all
   - popd
   - pwd
