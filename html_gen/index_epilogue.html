@@ -1,3 +1,15 @@
         </table>
+        <script>
+         $(function () {
+             cpuSuccesses = $("table").find("tr > td:nth-child(2).table-success").length 
+             coreirSuccesses = $("table").find("tr > td:nth-child(4).table-success").length 
+             cpuFailures = $("table").find("tr > td:nth-child(2).table-danger").length 
+             coreirFailures = $("table").find("tr > td:nth-child(4).table-danger").length 
+             $("#cpuSuccesses").append("CPU Successes: " + String(cpuSuccesses))
+             $("#coreirSuccesses").append("CoreIR Successes: " + String(coreirSuccesses))
+             $("#cpuFailures").append("CPU Failures: " + String(cpuFailures))
+             $("#coreirFailures").append("CoreIR Failures: " + String(coreirFailures))
+         })
+        </script>
     </body>
 </html>

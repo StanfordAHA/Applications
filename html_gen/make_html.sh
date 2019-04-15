@@ -11,7 +11,7 @@ cp $INPUT_HTML_FILE_PRELUDE $OUTPUT_HTML_FILE
 # zip the two inputs together
 paste -d " " $HALIDE_CPU_PROGRAM_RESULTS_FILE $HALIDE_COREIR_PROGRAM_RESULTS_FILE > $HALIDE_TEMP_RESULTS
 # remove the color formatting for the terminal
-sed -ri -e 's/\^\[\[0?;?[0-9]+m//g' $HALIDE_TEMP_RESULTS
+sed -ri -e "s/[[:cntrl:]]\[([0-9]{1,3};)*[0-9]{1,3}m//g" $HALIDE_TEMP_RESULTS
 ## put every entry in the file in a html row
 sed -ri -e 's/(.*)/<tr>\1<\/tr>/' $HALIDE_TEMP_RESULTS
 sed -ri -e 's/([a-zA-Z\-]+\=[0-9]+)[[:space:]]+(PASSED)/<td class="table-success">\1<\/td><td class="table-success">\2<\/td>/g' $HALIDE_TEMP_RESULTS 
