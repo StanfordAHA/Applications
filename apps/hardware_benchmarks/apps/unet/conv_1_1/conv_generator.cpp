@@ -13,15 +13,18 @@ public:
     void generate() {
         /* THE ALGORITHM */
 
-        int height = 64;
-        int width = 64;
-
         Var x("x"), y("y"), z("z"), w("w");
 
+        Expr height = input.dim(0).extent();
+        Expr width = input.dim(1).extent();
+        Expr k_x = kernel.dim(0).extent();
+        Expr k_y = kernel.dim(1).extent();
+        Expr k_z = kernel.dim(2).extent();
+
         Func conv("conv");
-        RDom r(0, 3,
-               0, 3,
-               0, 4);
+        RDom r(0, k_x,
+               0, k_y,
+               0, k_z);
 
         conv(x, y, w) = 0;
 
@@ -42,12 +45,12 @@ public:
           hw_input.compute_root();
           hw_output.compute_root();
           
-          hw_output.tile(x,y, xo,yo, xi,yi, width-2, height-2)
+          hw_output.tile(x,y, xo,yo, xi,yi, width-k_x+1, height-k_y+1)
             .hw_accelerate(xi, xo);
 
           conv.update()
-            .unroll(r.x, 3)
-            .unroll(r.y, 3);
+            .unroll(r.x, 1)
+            .unroll(r.y, 1);
 
           conv.linebuffer();
 
@@ -56,8 +59,8 @@ public:
         } else {  // schedule to CPU
           conv.compute_root();
           conv.update()
-            .unroll(r.x, 3)
-            .unroll(r.y, 3);
+            .unroll(r.x, 1)
+            .unroll(r.y, 1);
         }
         
     }
@@ -65,4 +68,4 @@ public:
 
 }  // namespace
 
-HALIDE_REGISTER_GENERATOR(ConvolutionKernel, conv_3_3)
+HALIDE_REGISTER_GENERATOR(ConvolutionKernel, conv)

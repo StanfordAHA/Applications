@@ -12,8 +12,8 @@ public:
     void generate() {
         /* THE ALGORITHM */
         int stride = 2;
-        int height = 64;
-        int width = 64;
+        Expr width = input.dim(0).extent();
+        Expr height = input.dim(1).extent();
 
         Var x("x"), y("y"), z("z");
 
