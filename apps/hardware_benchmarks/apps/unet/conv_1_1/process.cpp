@@ -1,6 +1,6 @@
 #include <cstdio>
 
-#include "conv.h"
+#include "conv_1_1.h"
 
 #include "hardware_process_helper.h"
 #include "coreir_interpret.h"
@@ -14,22 +14,22 @@ int main(int argc, char **argv) {
   int y = 128;
   int k_x = 1;
   int k_y = 1;
-  int z = 4;
-  int w = 1;
+  int z = 2;
+  int w = 4;
 
   std::vector<Buffer<uint8_t>*> inputs;
   std::vector<Buffer<uint8_t>*> outputs;
   Buffer<uint8_t> image(x, y, z);
   Buffer<uint8_t> kernel(k_x, k_y, z, w);
-  Buffer<uint8_t> output(x - k_x + 1, y - k_y + 1, w);
+  Buffer<uint8_t> output(x, y, w);
   inputs.push_back(&image);
   inputs.push_back(&kernel);
   outputs.push_back(&output);
 
-  General_ProcessController<uint8_t> processor("conv",
+  General_ProcessController<uint8_t> processor("conv_1_1",
                                             {
                                               {"cpu",
-                                                  [&]() { conv(*inputs[0], *inputs[1], *outputs[0]); }
+                                                  [&]() { conv_1_1(*inputs[0], *inputs[1], *outputs[0]); }
                                               },
                                               {"coreir",
                                                   [&]() { run_coreir_on_interpreter<>("bin/design_top.json", *inputs[0], *outputs[0],
